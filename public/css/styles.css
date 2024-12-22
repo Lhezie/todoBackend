@@ -1,0 +1,199 @@
+/* General body and font setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Main container for the app */
+  .container {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  /* Navigation links (for login, signup, etc.) */
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  nav a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  nav a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input[type="text"], input[type="password"], input[type="email"] {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  button[type="submit"] {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Task List */
+  ul {
+    list-style: none;
+  }
+  
+  ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 14px;
+  }
+  
+  ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  ul li.completed {
+    text-decoration: line-through;
+    color: #6c757d;
+  }
+  
+  ul li.deleted {
+    color: #dc3545;
+    font-style: italic;
+  }
+  
+  /* Task creation and update forms */
+  .create-task, .update-task {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .create-task input,
+  .update-task input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .create-task button,
+  .update-task button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .create-task button:hover,
+  .update-task button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Message alerts (flash messages) */
+  .alert {
+    padding: 15px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .alert.success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .alert.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+  }
+  
+  /* Responsive styling */
+  @media (max-width: 600px) {
+    .container {
+      width: 95%;
+    }
+  
+    h1 {
+      font-size: 24px;
+    }
+  
+    nav a {
+      font-size: 14px;
+    }
+  
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      font-size: 14px;
+    }
+  
+    button[type="submit"] {
+      font-size: 14px;
+    }
+  
+    ul li {
+      font-size: 14px;
+    }
+  }
+  

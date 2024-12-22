@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="/css/layout.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Todo List</h1>
+
+    
+    <nav>
+      <a href="/logout">Logout</a>
+      <a href="/create">Create Task</a>
+    </nav>
+    <ul>
+      <% tasks.forEach(task => { %>
+        <li class="<%= task.state %>">
+          <span><%= task.title %></span>
+          <% if (task.state === 'pending') { %>
+            <a href="/tasks/update/<%= task._id %>/completed">Complete</a>
+          <% } else if (task.state === 'completed') { %>
+            <a href="/tasks/update/<%= task._id %>/pending">Undo</a>
+          <% } %>
+          <a href="/tasks/delete/<%= task._id %>">Delete</a>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</body>
+</html>
