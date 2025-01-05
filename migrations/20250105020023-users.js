@@ -1,42 +1,37 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-const User = require("../models/Users"); 
- 
-
 
 mongoose.connect(process.env.MONGODB_URI, {
-  useUnifiedTopology: true,
   serverSelectionTimeoutMS: 30000,
 });
 
 async function up() {
   try {
-    // Ensure the User model is ready
     const usersCollection = mongoose.connection.collection("users");
 
-    // Add index for email field if it doesn't exist
+    // Create unique index for email
     await usersCollection.createIndex({ email: 1 }, { unique: true });
 
-    console.log("Users collection modified with necessary indexes.");
+    console.log("Unique index on email created.");
   } catch (error) {
     console.error("Error in up migration:", error);
+  } finally {
+    mongoose.disconnect();
   }
 }
 
-/**
- * Make any changes that UNDO the up function side effects here (if possible)
- */
 async function down() {
   try {
-    // Drop the index on email if it was created in the up function
     const usersCollection = mongoose.connection.collection("users");
 
-    // Check existing indexes and drop the 'email_1' index (or update with correct name if different)
+    // Drop the index on email
     await usersCollection.dropIndex("email_1");
 
-    console.log("Users collection index dropped.");
+    console.log("Unique index on email dropped.");
   } catch (error) {
     console.error("Error in down migration:", error);
+  } finally {
+    mongoose.disconnect();
   }
 }
 
