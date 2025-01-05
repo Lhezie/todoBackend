@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Signin</title>
+  <title>Signup</title>
 </head>
 <body>
-  <h1>Signin</h1>
+  <h1>Signup</h1>
   <% if (message) { %>
     <p style="color: red;"><%= message %></p>
   <% } %>
-  <form action="/auth/signin" method="POST">
+  <form action="/auth/signup" method="POST">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required>
     <br>

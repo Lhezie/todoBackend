@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 5030;
 mongoose
   .connect(process.env.MONGODB_URI, {
    
-   
+    // useNewUrlParser: true,
    
   })
   .then(() => console.log('MongoDB connected'))
@@ -125,11 +125,27 @@ app.post('/auth/signup', async (req, res) => {
 });
 
 // Signin Route
-app.post('/auth/signin', passport.authenticate('local', {
-  successRedirect: '/tasks',
-  failureRedirect: '/auth/signin',
-  failureFlash: true,
-}));
+app.post('/auth/signin', async (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) return next(err);
+    if (!user) {
+      // Return JSON response for API clients like Postman
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    req.logIn(user, (err) => {
+      if (err) return next(err);
+
+      // Differentiate response for API clients and browser redirects
+      if (req.headers.accept === 'application/json') {
+        return res.status(200).json({ message: 'Login successful', user });
+      }
+
+      res.redirect('/tasks'); // Default redirect for browser workflows
+    });
+  })(req, res, next);
+});
+
 
 // Logout Route
 app.get('/logout', (req, res, next) => {
