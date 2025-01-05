@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/Users');
 const Task = require('./models/Task');
+const { authenticate } = require('./middleware/authMiddleware');
 
 // Load environment variables
 dotenv.config();
@@ -72,10 +73,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Custom Middleware
-const isAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) return next();
-  res.redirect('/auth/signin');
-};
+
 
 
 // Routes
@@ -158,7 +156,7 @@ app.get('/logout', (req, res, next) => {
 
 
 // Task Routes
-app.get('/tasks', isAuthenticated, async (req, res) => {
+app.get('/tasks', authenticate, async (req, res) => {
   try {
     const tasks = await Task.find({ user: req.user.id });
     res.render('tasks/index', { tasks, user: req.user });
@@ -167,7 +165,7 @@ app.get('/tasks', isAuthenticated, async (req, res) => {
   }
 });
 
-app.post('/tasks', isAuthenticated, async (req, res) => {
+app.post('/tasks', authenticate, async (req, res) => {
   try {
     const task = new Task({ description: req.body.description, user: req.user.id });
     await task.save();
@@ -178,7 +176,7 @@ app.post('/tasks', isAuthenticated, async (req, res) => {
 });
 
 
-app.post('/tasks/:id/update', isAuthenticated, async (req, res) => {
+app.post('/tasks/:id/update', authenticate, async (req, res) => {
   await Task.findByIdAndUpdate(req.params.id, { state: req.body.state });
   res.redirect('/tasks');
 });
