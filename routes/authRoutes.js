@@ -1,8 +1,13 @@
 const express = require('express');
-const { signup, signin } = require('../controllers/authController');
+const authController = require('../controllers/authController');
 const router = express.Router();
 
-router.post('/signup', signup);
-router.post('/signin', signin);
+
+
+// Auth Routes
+router.get('/signin', (req, res) => res.render('auth/login', { message: req.flash('error') }));
+router.post('/signin', authController.signin);
+router.post('/signup', authController.signup);
+router.get('/logout', authController.logout);
 
 module.exports = router;

@@ -34,3 +34,13 @@ exports.signin = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+
+
+// Logout Logic
+exports.logout = (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    res.redirect('/auth/signin');
+  });
+};
