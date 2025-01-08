@@ -12,10 +12,13 @@ exports.signup = async (req, res) => {
     await user.save();
     res.status(201).json({ message: "User created successfully!" });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
     res.status(400).json({ error: error.message });
-    console.log(error.message);
   }
 };
+
 
 exports.signin = async (req, res) => {
   try {
@@ -29,7 +32,16 @@ exports.signin = async (req, res) => {
     // Use generateToken to create the token
     const token = generateToken({ id: user._id });
 
-    res.json({ token });
+    res.json({ 
+      token,
+      user: {
+        id: user._id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+      }
+    });
+    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
